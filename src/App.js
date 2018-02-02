@@ -26,20 +26,15 @@ class App extends Component {
  
   onSubmit = (event) => {
     event.preventDefault();
-
-    //let sendText = this.state.value;
     
 
     ipfs.add(this.state.value, (err, result) =>{
         console.log(err,result);
 
-        console.log("this is the ipfs hash # " + result);
-        
+        console.log("this value: " + this.state.value + "  is at ipfs hash # " + result);    
     });
 
-    //use 'state ' to get access to the planet var for ipfs.cat..?
-    console.log("input was this..." +   this.state.value + " to planet... " );
-
+    
   };
  
   render() {
