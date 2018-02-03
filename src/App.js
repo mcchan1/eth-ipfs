@@ -8,10 +8,6 @@ import web3 from './web3';
 const IPFS = require('ipfs-mini');
 const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
  
-// ipfs.add('shibas world!', (err, result) => {
-//   console.log(err, result);
-// });
-
 // ipfs.cat("QmXfz4jMCuYrU7rXAUE2KR9qfdn2uvEGHoBaqjxxHtKnyD", (err, result) => {
 //   console.log(err, result);
 // });
@@ -20,31 +16,32 @@ const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
 class App extends Component {
 
   state = {
-    value: ''
+    value: '',
+    result: ' '
 
   };
  
   onSubmit = (event) => {
     event.preventDefault();
     
-
+  
     ipfs.add(this.state.value, (err, result) =>{
         console.log(err,result);
-
-        console.log("this value: " + this.state.value + "  is at ipfs hash # " + result);    
+        //the console.log works fine, but I can't result out of this local function
+        console.log("this value: " + this.state.value + "  is at ipfs hash # " + result); 
+        // I want to use the 'result' and apply it to the result in state
     });
 
-    
   };
  
   render() {
 
-    console.log(web3.version);
+    //console.log(web3.version);
   
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Qoo Ethereum with IPFS and Create React App</h1>
+          <h1>IPFS with Create React App</h1>
         </header>
         
         <hr />
@@ -60,6 +57,7 @@ class App extends Component {
          </form>
 
          <p>{this.state.value}</p>
+         <p>{this.state.result}</p>
          
       </div>
     );
