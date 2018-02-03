@@ -30,13 +30,18 @@ class App extends Component {
         //the console.log works fine, but I can't result out of this local function
         console.log("this value: " + this.state.value + "  is at ipfs hash # " + result); 
         // I want to use the 'result' and apply it to the result in state
+
+             // Set this.state.result to value of function parameter result 
+     this.setState({ result }); // es6 syntax 
+ 
+     // this.setState({ result: result }); // long-form
     });
 
   };
  
   render() {
 
-    //console.log(web3.version);
+    console.log(web3.version);
   
     return (
       <div className="App">
