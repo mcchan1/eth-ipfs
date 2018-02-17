@@ -28,9 +28,8 @@ class App extends Component {
   };
  
   async componentDidMount() {
-    
-    console.log('componentDidMount');   
 
+    console.log('componentDidMount');   
   }
 
   onSubmit = async (event) => {
@@ -68,20 +67,28 @@ class App extends Component {
   }; //onSubmit end
 
   onClick = async () => {
-    
+    try{
       this.setState({message: "waiting..."});
+      this.setState({blockNumber:"waiting.."});
+      this.setState({gasUsed:"waiting..."});
+
       //get Transaction Receipt in console on click
       //See: https://web3js.readthedocs.io/en/1.0/web3-eth.html#gettransactionreceipt
       await web3.eth.getTransactionReceipt(this.state.transactionHash, (err, txReceipt)=>{
-        
         console.log(err,txReceipt);
         this.setState({txReceipt});
+
       }); //await for get
-  
+
+      await this.setState({blockNumber: this.state.txReceipt.blockNumber});
+      await this.setState({gasUsed: this.state.txReceipt.gasUsed});
+
       this.setState({message:'success'});
+    } //try
+    catch(error){
+      console.log(error);
+    }
   } //onClick
-
-
  
   render() {
     
@@ -109,7 +116,7 @@ class App extends Component {
 
           <Button onClick = {this.onClick}> GetTransaction Receipt </Button>
 
-          <h3>TX recepit status: {this.state.message} </h3>
+          <h3>TX receipt status: {this.state.message} </h3>
 
             <Table bordered responsive>
             <thead>
@@ -138,17 +145,18 @@ class App extends Component {
               </tr>
 
               <tr>
-                <td>Block Number # </td>
-                <td>{this.state.txReceipt.blockNumber}</td>
-              </tr>
-              <tr>
                 <td>Tx Hash # </td>
-                <td>{this.state.txReceipt.transactionHash}</td>
+                <td>{this.state.transactionHash}</td>
+              </tr>
+
+              <tr>
+                <td>Block Number # </td>
+                <td>{this.state.blockNumber}</td>
               </tr>
 
               <tr>
                 <td>Gas Used</td>
-                <td>{this.state.txReceipt.gasUsed}</td>
+                <td>{this.state.gasUsed}</td>
               </tr>
           
             </tbody>
