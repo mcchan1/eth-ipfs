@@ -8,7 +8,6 @@
     "ipfs-mini": "^1.1.2",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
-    "react-bootstrap-button-loader": "^1.0.11",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.0",
     "web3": "^1.0.0-beta.26"

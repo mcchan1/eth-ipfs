@@ -1,17 +1,14 @@
-import {Table, Grid } from 'react-bootstrap';
-import Button from 'react-bootstrap-button-loader';
+import {Table, Grid, Button } from 'react-bootstrap';
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import web3 from './web3';
 import ipfs from './ipfs';
 import storehash from './storehash';
-//import {abi,address} from './storehash';
 
 // ipfs.cat("QmXfz4jMCuYrU7rXAUE2KR9qfdn2uvEGHoBaqjxxHtKnyD", (err, result) => {
 //   console.log(err, result);
 // });
-
 
 class App extends Component {
  
@@ -20,11 +17,9 @@ class App extends Component {
     result: ' ', 
     txReceipt: '',
     ethAddress: '', 
-    message: '', 
     blockNumber:'',
     transactionHash:'',
-    gasUsed:''
-  
+    gasUsed:'' 
   };
  
   async componentDidMount() {
@@ -35,19 +30,18 @@ class App extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
 
+    //bring in user's metamask account address
     const accounts = await web3.eth.getAccounts();
    
     console.log('Sending from Metamask account: ' + accounts[0]);
 
+    //obtain contract address from storehash.js
     const ethAddress= await storehash.options.address;
     this.setState({ethAddress});
-    console.log('Ethereum Contract Address: ' + ethAddress);
 
     //send the IPFS hash value to Ethereum w/ user's Metamask account
     await ipfs.add(this.state.value, (err, result) =>{
         console.log(err,result);
-
-        console.log("this value: " + this.state.value + "  is at ipfs hash # " + result); 
 
         // Set this.setState 'result' to value of function parameter result 
         this.setState({ result }); // es6 syntax 
@@ -61,14 +55,14 @@ class App extends Component {
       }, (error, transactionHash)=>{
           console.log(transactionHash);
           this.setState({transactionHash});
-
         });
     }) //await for ipfs.add
   }; //onSubmit end
 
   onClick = async () => {
+
     try{
-      this.setState({message: "waiting..."});
+     
       this.setState({blockNumber:"waiting.."});
       this.setState({gasUsed:"waiting..."});
 
@@ -78,12 +72,10 @@ class App extends Component {
         console.log(err,txReceipt);
         this.setState({txReceipt});
 
-      }); //await for get
+      }); //await for getTransactionReceipt
 
       await this.setState({blockNumber: this.state.txReceipt.blockNumber});
-      await this.setState({gasUsed: this.state.txReceipt.gasUsed});
-
-      this.setState({message:'success'});
+      await this.setState({gasUsed: this.state.txReceipt.gasUsed});    
     } //try
     catch(error){
       console.log(error);
@@ -114,9 +106,7 @@ class App extends Component {
 
           <hr />
 
-          <Button onClick = {this.onClick}> GetTransaction Receipt </Button>
-
-          <h3>TX receipt status: {this.state.message} </h3>
+          <Button onClick = {this.onClick}> Get Transaction Receipt </Button>
 
             <Table bordered responsive>
             <thead>
@@ -126,7 +116,6 @@ class App extends Component {
               </tr>
             </thead>
            
-
             <tbody>
                <tr>
                 <td>Data Sent to IPFS</td>
@@ -135,7 +124,7 @@ class App extends Component {
               </tr>
 
                <tr>
-                <td>IPFS Hash # </td>
+                <td>IPFS Hash # stored on Eth Contract</td>
                 <td>{this.state.result}</td>
            
               </tr>
