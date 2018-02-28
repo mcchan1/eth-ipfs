@@ -22,6 +22,10 @@
 .App-intro {
   font-size: large;
 }
+/*some css to I added*/
+input[type="file"] {
+    display: inline-block;
+}
 
 .table {
       max-width: 90%;
@@ -30,7 +34,7 @@
 .table th {
     text-align: center;
 }
-
+/*end of my css*/
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
