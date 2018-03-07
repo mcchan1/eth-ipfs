@@ -40,8 +40,8 @@ class App extends Component {
         this.setState({blockNumber:"waiting.."});
         this.setState({gasUsed:"waiting..."});
 
-        //get Transaction Receipt in console on click
-        //See: https://web3js.readthedocs.io/en/1.0/web3-eth.html#gettransactionreceipt
+        // get Transaction Receipt in console on click
+        // See: https://web3js.readthedocs.io/en/1.0/web3-eth.html#gettransactionreceipt
         await web3.eth.getTransactionReceipt(this.state.transactionHash, (err, txReceipt)=>{
           console.log(err,txReceipt);
           this.setState({txReceipt});
@@ -68,6 +68,7 @@ class App extends Component {
       this.setState({ethAddress});
 
       //save document to IPFS,return its hash#, and set hash# to state
+      //https://github.com/ipfs/interface-ipfs-core/blob/master/SPEC/FILES.md#add 
       await ipfs.add(this.state.buffer, (err, ipfsHash) => {
         console.log(err,ipfsHash);
         //setState by setting ipfsHash to ipfsHash[0].hash 

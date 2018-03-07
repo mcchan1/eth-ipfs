@@ -1,23 +1,10 @@
 import web3 from './web3';
 
-//access our local copy to contract deployed on rinkeby
-const address = '0x2cccd6e8269f0080a094ae8ccf17db93528ca0cd';
-
+//access our local copy to contract deployed on rinkeby testnet
+//use your own contract address
+const address = '0xb84b12e953f5bcf01b05f926728e855f2d4a67a9';
+//use the ABI from your contract
 const abi = [
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "sender",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
   {
     "constant": true,
     "inputs": [],
@@ -30,15 +17,6 @@ const abi = [
     ],
     "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "notary",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -56,6 +34,4 @@ const abi = [
     "type": "function"
   }
 ]
-
 export default new web3.eth.Contract(abi, address);
-//export {abi, address};

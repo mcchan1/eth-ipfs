@@ -1,20 +1,15 @@
-pragma solidity ^0.4.17;
 
+//0xb84b12e953f5bcf01b05f926728e855f2d4a67a9  contract address on rinkeby
+//deployed using remix 
 
 contract Contract {
-      string ipfsHash;
-      address public sender;
-      
-    function sendHash(string x) public {
-        ipfsHash = x;
-    }
-    function notary() {
-        sender = msg.sender;
-    }
-    
-    function getHash() public view returns (string x) {
-        return ipfsHash;
-    }
+ string ipfsHash;
+ 
+ function sendHash(string x) public {
+   ipfsHash = x;
+ }
 
+ function getHash() public view returns (string x) {
+   return ipfsHash;
+ }
 }
-//0x2cccd6e8269f0080a094ae8ccf17db93528ca0cd contract address
